@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/colorWhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/place_info"
+            android:textAppearance="?attr/textAppearanceHeadline2"
             android:text="Москва"/>
 
         <TextView
@@ -26,6 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/place_name"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="?attr/textAppearanceHeadline3"
             android:text="Пн, 14:00"/>
 
         <TextView
@@ -35,6 +38,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="?attr/textAppearanceHeadline1"
             android:text="20"
             />
 
