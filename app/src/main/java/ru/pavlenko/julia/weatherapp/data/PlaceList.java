@@ -41,6 +41,12 @@ public class PlaceList {
         Place newPlace = new Place();
         newPlace.setName("Москва");
 
+        createWeek(newPlace);
+
+        places.add(newPlace);
+    }
+
+    public void createWeek(Place place) {
         List<Day> days = new ArrayList<>();
         int currentNumber = CustomCalendar.getCurrentDayNumber() - 1;
         for (int i = 0; i < 6; i++) {
@@ -53,31 +59,14 @@ public class PlaceList {
             }
             days.add(day);
         }
-        newPlace.setWeek(days);
-
-        places.add(newPlace);
-
-        newPlace = new Place();
-        newPlace.setName("Омск");
-
-        days = new ArrayList<>();
-        currentNumber = CustomCalendar.getCurrentDayNumber() - 1;
-        for (int i = 0; i < 6; i++) {
-            Day day = new Day();
-            if ((currentNumber + i) <= (DaysOfWeek.values().length - 1)) {
-                day.setDayOfWeek(DaysOfWeek.values()[currentNumber + i]);
-            }
-            else {
-                day.setDayOfWeek(DaysOfWeek.values()[currentNumber + i - DaysOfWeek.values().length]);
-            }
-            days.add(day);
-        }
-        newPlace.setWeek(days);
-
-        places.add(newPlace);
+        place.setWeek(days);
     }
 
     public static int getCurrentDayNumber() {
         return CURRENT_DAY_NUMBER;
+    }
+
+    public void addPlace(Place place) {
+        places.add(place);
     }
 }
