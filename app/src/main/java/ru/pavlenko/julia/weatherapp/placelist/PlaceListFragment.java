@@ -1,7 +1,6 @@
-package ru.pavlenko.julia.weatherapp.plaselist;
+package ru.pavlenko.julia.weatherapp.placelist;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,19 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.miguelcatalan.materialsearchview.SearchAdapter;
 
 import java.util.List;
-import java.util.Set;
 
 import ru.pavlenko.julia.weatherapp.R;
+import ru.pavlenko.julia.weatherapp.currentweather.CurrentWeatherFragment;
 import ru.pavlenko.julia.weatherapp.data.Place;
 import ru.pavlenko.julia.weatherapp.data.PlaceList;
 import ru.pavlenko.julia.weatherapp.geonames.GeoNamesRepository;
 import ru.pavlenko.julia.weatherapp.geonames.GeoNamesRepositoryImpl;
+import ru.pavlenko.julia.weatherapp.main.MainActivity;
 import ru.pavlenko.julia.weatherapp.util.Consumer;
 
-public class PlaceListFragment extends Fragment{
+public class PlaceListFragment extends Fragment implements OnPlaceClickListener{
     public static final int RV_VERTICAL_SPACE = 32;
 
     private RecyclerView mRecyclerView;
@@ -42,15 +41,12 @@ public class PlaceListFragment extends Fragment{
 
     private String[] mArrOfCities;
 
-    private String mCurrentPlace;
-
-    private Parcelable mInstanceState;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mRecyclerAdapter = new PlaceListAdapter(getContext());
+        mRecyclerAdapter.setListener(this);
         mRepository = new GeoNamesRepositoryImpl();
     }
 
@@ -70,7 +66,6 @@ public class PlaceListFragment extends Fragment{
         mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(RV_VERTICAL_SPACE));
 
         mSearchView = getActivity().findViewById(R.id.search_view);
-
     }
 
     @Override
@@ -100,29 +95,12 @@ public class PlaceListFragment extends Fragment{
             }
         });
 
-        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                Place place = new Place();
-                place.setName(mCurrentPlace);
-                PlaceList.getInstance().createWeek(place);
-                PlaceList.getInstance().addPlace(place);
-                mCurrentPlace = "";
-            }
-        });
-
-        mSearchView.setSubmitOnClick(true);
     }
 
     private void processQuery(String query) {
         mRepository.getListing(query, new Consumer<List<String>>() {
             @Override
-            public void apply(List<String> value) {
+            public void apply(final List<String> value) {
                 mArrOfCities = new String[value.size()];
                 value.toArray(mArrOfCities);
 
@@ -130,12 +108,26 @@ public class PlaceListFragment extends Fragment{
                     @Override
                     public void run() {
                         mSearchView.setSuggestions(mArrOfCities);
+                        mSearchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Place place = new Place();
+                                place.setName(parent.getItemAtPosition(position).toString());
+                                // переделать запрос к API, чтобы вытаскивать страну
+                                place.setCountry("Russia");
+                                PlaceList.getInstance().createWeek(place);
+                                PlaceList.getInstance().addPlace(place);
+                                mSearchView.closeSearch();
+                            }
+                        });
                     }
                 });
             }
         });
+    }
 
-        if (query != null && !query.equals(""))
-            mCurrentPlace = query;
+    @Override
+    public void OnItemClick(int position) {
+        ((MainActivity) getActivity()).openCurrentWeatherFragment();
     }
 }

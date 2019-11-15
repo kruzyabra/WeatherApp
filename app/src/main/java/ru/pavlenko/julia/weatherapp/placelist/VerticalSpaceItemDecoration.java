@@ -1,4 +1,4 @@
-package ru.pavlenko.julia.weatherapp.plaselist;
+package ru.pavlenko.julia.weatherapp.placelist;
 
 import android.graphics.Rect;
 import android.view.View;

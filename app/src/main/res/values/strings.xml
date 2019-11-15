@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="item_search">Seacrh</string>
+    <string name="item_renew">Renew</string>
 </resources>

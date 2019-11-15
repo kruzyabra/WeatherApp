@@ -39,7 +39,8 @@ public class PlaceList {
         this.mainPlaceIndex = 0;
 
         Place newPlace = new Place();
-        newPlace.setName("Москва");
+        newPlace.setName("Moscow");
+        newPlace.setCountry("Russia");
 
         createWeek(newPlace);
 

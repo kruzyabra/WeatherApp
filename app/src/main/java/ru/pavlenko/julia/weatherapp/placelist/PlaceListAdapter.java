@@ -1,4 +1,4 @@
-package ru.pavlenko.julia.weatherapp.plaselist;
+package ru.pavlenko.julia.weatherapp.placelist;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,6 +20,8 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
 
     private List<Place> mPlaceList;
 
+    private OnPlaceClickListener mListener;
+
     public PlaceListAdapter(Context context) {
         mContext = context;
         mPlaceList = PlaceList.getInstance().getPlaces();
@@ -30,8 +32,13 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
         holder.mPlaceName.setText(mPlaceList.get(position).getName());
         holder.mPlaceTemperature.setText(mPlaceList.get(position).getCurrentDay().getDayTemperature());
         // Добавить текущее время
-        holder.mPlaceInfo.setText(mPlaceList.get(position).getCurrentDay().getDayOfWeek());
+        holder.mPlaceCountry.setText(mPlaceList.get(position).getCountry());
 
+        holder.setListener(mListener, position);
+    }
+
+    public void setListener(OnPlaceClickListener listener) {
+        mListener = listener;
     }
 
     @NonNull
@@ -46,17 +53,31 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
         return mPlaceList.size();
     }
 
-    static class PlaceListViewHolder extends RecyclerView.ViewHolder {
+    static class PlaceListViewHolder extends RecyclerView.ViewHolder{
         private TextView mPlaceName;
-        private TextView mPlaceInfo;
+        private TextView mPlaceCountry;
         private TextView mPlaceTemperature;
+
+        private View mView;
 
         public PlaceListViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            mView = itemView;
+
             mPlaceName = itemView.findViewById(R.id.place_name);
-            mPlaceInfo = itemView.findViewById(R.id.place_info);
+            mPlaceCountry = itemView.findViewById(R.id.place_country);
             mPlaceTemperature = itemView.findViewById(R.id.place_temperature);
         }
+
+        public void setListener(final OnPlaceClickListener listener, final int position) {
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.OnItemClick(position);
+                }
+            });
+        }
+
     }
 }
