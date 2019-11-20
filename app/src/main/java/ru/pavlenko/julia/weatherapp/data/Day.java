@@ -31,7 +31,7 @@ public class Day {
     }
 
     public String getWindSpeed() {
-        return String.valueOf(windSpeed) + " м/с";
+        return String.valueOf(windSpeed) + " km/h";
     }
 
     public String getNightTemperature() {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import ru.pavlenko.julia.weatherapp.R;
 import ru.pavlenko.julia.weatherapp.currentweather.CurrentWeatherFragment;
+import ru.pavlenko.julia.weatherapp.data.PlaceList;
 import ru.pavlenko.julia.weatherapp.placelist.PlaceListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,11 +26,19 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void openCurrentWeatherFragment() {
+    public void openCurrentWeatherFragment(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+
+        CurrentWeatherFragment fragment = new CurrentWeatherFragment();
+        fragment.setArguments(bundle);
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new CurrentWeatherFragment())
+                .replace(R.id.container, fragment)
                 .commit();
 
-        mToolbar.setTitle("Moscow");
+        mToolbar.setTitle(PlaceList.getInstance()
+                .getPlaces().get(position)
+                .getName());
     }
 }

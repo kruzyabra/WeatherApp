@@ -13,6 +13,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.pavlenko.julia.weatherapp.BuildConfig;
 import ru.pavlenko.julia.weatherapp.util.Consumer;
 
 public class GeoNamesRepositoryImpl implements GeoNamesRepository {
@@ -28,7 +29,7 @@ public class GeoNamesRepositoryImpl implements GeoNamesRepository {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.geonames.org/")
+                .baseUrl(BuildConfig.GN_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .callbackExecutor(Executors.newFixedThreadPool(4))
                 .client(okHttpClient)
@@ -41,7 +42,7 @@ public class GeoNamesRepositoryImpl implements GeoNamesRepository {
     public void getListing(String nameStartWith, final Consumer<List<String>> geoNames) {
         mApi.getListing(nameStartWith,
                 GeoNamesParam.ORDER_BY.getValue(),
-                GeoNamesParam.USER_NAME.getValue(),
+                BuildConfig.GN_API_USERNAME,
                 GeoNamesParam.COUNTRY.getValue())
                 .enqueue(new Callback<Listing>() {
                     @Override

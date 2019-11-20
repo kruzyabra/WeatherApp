@@ -13,7 +13,7 @@ public class LoftApp extends Application {
         super.onCreate();
 
         if (BuildConfig.DEBUG) {
-            StrictMode.enableDefaults();
+            //StrictMode.enableDefaults();
             Timber.plant(new DebugTree());
         }
 

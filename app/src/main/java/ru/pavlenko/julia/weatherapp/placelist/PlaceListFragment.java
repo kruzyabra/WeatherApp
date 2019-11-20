@@ -128,6 +128,6 @@ public class PlaceListFragment extends Fragment implements OnPlaceClickListener{
 
     @Override
     public void OnItemClick(int position) {
-        ((MainActivity) getActivity()).openCurrentWeatherFragment();
+        ((MainActivity) getActivity()).openCurrentWeatherFragment(position);
     }
 }

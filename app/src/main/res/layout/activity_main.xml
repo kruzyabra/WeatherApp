@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 app:title="Places"
-                app:navigationIcon="@drawable/ic_place_24dp"
+                app:navigationIcon="@drawable/ic_place_white"
                 app:titleTextAppearance="@style/TextAppearance.H2" >
 
             </androidx.appcompat.widget.Toolbar>
