@@ -7,14 +7,13 @@
     android:background="@drawable/background_places"
     tools:context=".main.MainActivity">
 
-
-        <FrameLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <FrameLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -23,16 +22,14 @@
                 android:background="@android:color/transparent"
                 app:title="Places"
                 app:navigationIcon="@drawable/ic_place_white"
-                app:titleTextAppearance="@style/TextAppearance.H2" >
-
-            </androidx.appcompat.widget.Toolbar>
+                app:titleTextAppearance="@style/TextAppearance.H2" />
 
             <com.miguelcatalan.materialsearchview.MaterialSearchView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-        </FrameLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/container"
