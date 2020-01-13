@@ -52,7 +52,7 @@ public class GeoNamesRepositoryImpl implements GeoNamesRepository {
                         List<String> cities = new ArrayList<>();
 
                         for (City city : listing) {
-                            cities.add(city.name);
+                            cities.add(city.name + ", " + city.countryName);
                         }
 
                         geoNames.apply(cities);
